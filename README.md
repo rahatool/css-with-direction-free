@@ -23,7 +23,7 @@ MyCSS.rules = {
 ```
 
 if direction is rtl then out equal to:
-```javascript
+```css
 body > p {
 	font-size: 5rem;
 	margin-right: 10rem;
@@ -31,10 +31,11 @@ body > p {
 .floated-item {
 	float: right;
 	text-shadow: -1px 1px #ddd;
-}```
+}
+```
 
 if direction is ltr then out equal to:
-```javascript
+```css
 body > p {
 	font-size: 1rem;
 	margin-left: 10rem;
