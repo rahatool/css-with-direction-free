@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My CSS</title>
+	<script src='my-css.js'></script>
+	<script>
+// Configuring it
+MyCSS.direction = 'rtl'; // rtl, ltr
+
+MyCSS.rules = {
+	/*
+	body > p {
+		font-size: 1rem;
+		margin-left: 10rem;
+	}
+	body > p {
+		font-size: 5rem;
+		margin-right: 10rem;
+	}
+	*/
+	'body > p': {
+		'font-size': {
+			ltr: '1rem',
+			rtl: '5rem',
+		},
+		'margin-start': '10rem',
+	},
+
+	/*
+	.floated-item {
+		float: left;
+		text-shadow: 1px 1px #ddd;
+	}
+	.floated-item {
+		float: right;
+		text-shadow: -1px 1px #ddd;
+	}
+	*/
+	'.floated-item': {
+		'float': 'start',
+		'text-shadow': '1px 1px #ddd',
+	}
+};
+
+/*
+MyCSS.addRule('body > p', {
+	fontSize: {
+		ltr: '1rem',
+		rtl: '5rem',
+	},
+	marginStart: '10rem',
+});
+
+MyCSS.addRule('.floated-item', {
+	float: 'start',
+	textShadow: '1px 1px #ddd',
+});
+*/
+	</script>
+</head>
+<body>
+	<p>Hello World ^_~</p>
+	<div class='floated-item'>Floated Item with shadow</div>
+</body>
+</html>
