@@ -1,9 +1,11 @@
 # CSS with Direction-free
 Using css with logical properties ^_~
 
-# Example
+# How to use
 Configuring it
-`MyCSS.direction = 'rtl'; // rtl, ltr`
+```javascript
+MyCSS.direction = 'rtl'; // rtl OR ltr
+```
 
 in:
 ```javascript
@@ -45,6 +47,24 @@ body > p {
 	text-shadow: 1px 1px #ddd;
 }
 ```
+# Installation
+```html
+<script src="my-css.js"></script>
+<script>
+	MyCSS.rules = {
+		// here
+	};
+</script>
+```
+
+# Browser support
+Direction-free has been tested and works on the following browsers:
+- Chrome (desktop & Android)
+- Firefox
+- Opera
+- Safari (desktop & iOS)
+- IE8+
+-Android WebKit
 
 # License
-[CC-BY-SA](http://creativecommons.org/licenses/by-sa/4.0/)
+Direction-free is licensed under the [CC-BY-SA](http://creativecommons.org/licenses/by-sa/4.0/) License. Copyright 2017 Mahdi NezaratiZadeh. All rights reserved.
