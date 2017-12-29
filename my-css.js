@@ -1,3 +1,4 @@
+
 /**
  * @file Direction-free CSS
  * @author Mahdi NezaratiZadeh <mahdi.nezarati@gmail.com>
@@ -139,14 +140,15 @@ window.MyCSS = {
 	_addToStyleSheet(selector, declaration)
 	{
 		let stylesheet = this._stylesheet;
+		let index = stylesheet.rules.length;
 		if (stylesheet.insertRule) {
 			var inner_code=`${selector} {
 				${declaration}
 			}`;
 			//console.log(inner_code);
-			return stylesheet.insertRule(inner_code, stylesheet.rules.length);
+			return stylesheet.insertRule(inner_code,index);
 		} else if (stylesheet.addRule) {
-			return stylesheet.addRule(stylesheet, declaration);
+			return stylesheet.addRule(selector,declaration,index);
 		} else {
 			throw new Error('X_0');
 		}
