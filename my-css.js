@@ -46,14 +46,14 @@ window.MyCSS = {
 				for(item_sub in item.properties)
 				{
 					inner_code+=item_sub+"{";
-					inner_code+=this._addRuleHelper(item.properties[item_sub]);
+					inner_code+=this._processRule(item.properties[item_sub]);
 					inner_code+="}";
 				}
-				this.AddingRule(item.selector,inner_code);
+				this._addToStyleSheet(item.selector, inner_code);
 			}
 			else
 			{
-				this.AddingRule(item.selector,this._addRuleHelper(item.properties));
+				this._addToStyleSheet(item.selector, this._processRule(item.properties));
 			}
 		}
 	},
@@ -95,7 +95,7 @@ window.MyCSS = {
 			return -1;
 		} else {
 			// If the DOM is ready, the rule is processed.
-			return this.AddingRule(selector,this._addRuleHelper(properties));
+			return this._addToStyleSheet(selector, this._processRule(properties));
 		}
 	},
 
@@ -130,10 +130,13 @@ window.MyCSS = {
 		this._rules = [];
 	},
 
-
-
-
-	AddingRule(selector,declaration)
+	/**
+	 * @description The fundamental base of my dissertation starts from below
+	 * @throw {Error} Browser is not supported
+ 	 * @param String selector
+	 * @param Object properties
+	 */
+	_addToStyleSheet(selector, declaration)
 	{
 		// Cross-browser algorithm for adding rule
 		let stylesheet = this._stylesheet;
@@ -150,17 +153,11 @@ window.MyCSS = {
 		}
 	},
 
-
-
-
 	/**
 	 * @description The fundamental base of my dissertation starts from below
-	 * @throw {Error} Browser is not supported
- 	 * @param String selector
 	 * @param Object properties
 	 */
-
-	_addRuleHelper(properties) {
+	_processRule(properties) {
 		// Finding correct direction
 		let directions = {
 			rtl: {
@@ -185,9 +182,9 @@ window.MyCSS = {
 				case 'float':
 				case 'clear':
 					if (value == 'start') {
-						value == direction.start;
+						value = direction.start;
 					} else if (value == 'end') {
-						value == direction.end;
+						value = direction.end;
 					}
 					break;
 				
@@ -279,9 +276,9 @@ window.MyCSS = {
 				case 'text-align':
 				case 'text-align-last':
 					if (value == 'start') {
-						value == direction.start;
+						value = direction.start;
 					} else if (value == 'end') {
-						value == direction.end;
+						value = direction.end;
 					}
 					break;
 				
@@ -307,9 +304,9 @@ window.MyCSS = {
 
 				case 'marquee-direction':
 					if (value == 'start') {
-						value == direction.start;
+						value = direction.start;
 					} else if (value == 'end') {
-						value == direction.end;
+						value = direction.end;
 					}
 					break;
 
