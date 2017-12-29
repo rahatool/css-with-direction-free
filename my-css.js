@@ -131,14 +131,13 @@ window.MyCSS = {
 	},
 
 	/**
-	 * @description The fundamental base of my dissertation starts from below
+	 * @description Cross-browser algorithm for adding rule
 	 * @throw {Error} Browser is not supported
  	 * @param String selector
 	 * @param Object properties
 	 */
 	_addToStyleSheet(selector, declaration)
 	{
-		// Cross-browser algorithm for adding rule
 		let stylesheet = this._stylesheet;
 		if (stylesheet.insertRule) {
 			var inner_code=`${selector} {
