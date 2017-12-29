@@ -49,18 +49,7 @@ window.MyCSS = {
 					inner_code+=this._addRuleHelper(item.properties[item_sub]);
 					inner_code+="}";
 				}
-				var codes=`${item.selector} {
-					${inner_code}
-				}`;
-				//console.log(codes);
 				this.AddingRule(item.selector,inner_code);
-				/*
-				for(let item_sub of item.properties)
-				{
-					console.log(item_sub);
-				}
-				*/
-				//this._addRuleHelper(item.selector, item.properties);
 			}
 			else
 			{
@@ -83,11 +72,8 @@ window.MyCSS = {
 		// Checking state of DOM
 		if (this._stylesheet == null) {
 			// If the DOM is not ready, the rule is queued.
-			//console.log("selector ==> "+selector);
-			//console.log(properties);
-			//console.log(`${selector} queued!`);
-			//if(selector.trim().startsWith("@"))
 			var type;
+			//if(selector.trim().startsWith("@"))
 			if(selector.startsWith("@"))
 			{
 				type=true;
@@ -109,7 +95,7 @@ window.MyCSS = {
 			return -1;
 		} else {
 			// If the DOM is ready, the rule is processed.
-			return this._addRuleHelper(selector, properties);
+			return this.AddingRule(this._addRuleHelper(selector, properties));
 		}
 	},
 
@@ -155,7 +141,7 @@ window.MyCSS = {
 			var inner_code=`${selector} {
 				${declaration}
 			}`;
-			console.log(inner_code);
+			//console.log(inner_code);
 			return stylesheet.insertRule(inner_code, stylesheet.rules.length);
 		} else if (stylesheet.addRule) {
 			return stylesheet.addRule(stylesheet, declaration);
