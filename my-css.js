@@ -95,7 +95,7 @@ window.MyCSS = {
 			return -1;
 		} else {
 			// If the DOM is ready, the rule is processed.
-			return this.AddingRule(this._addRuleHelper(selector, properties));
+			return this.AddingRule(selector,this._addRuleHelper(selector, properties));
 		}
 	},
 
