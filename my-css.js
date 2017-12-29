@@ -40,7 +40,21 @@ window.MyCSS = {
 
 		// Checking queue for finding unadded-rules
 		for (let item of this._queue) {
-			this._addRuleHelper(item.selector, item.properties);
+			if(item.type == true)
+			{
+				var inner_code="";
+				for(item_sub in item.properties)
+				{
+					inner_code+=item_sub+"{";
+					inner_code+=this._addRuleHelper(item.properties[item_sub]);
+					inner_code+="}";
+				}
+				this.AddingRule(item.selector,inner_code);
+			}
+			else
+			{
+				this.AddingRule(item.selector,this._addRuleHelper(item.properties));
+			}
 		}
 	},
 
@@ -58,15 +72,30 @@ window.MyCSS = {
 		// Checking state of DOM
 		if (this._stylesheet == null) {
 			// If the DOM is not ready, the rule is queued.
-			this._queue.push({
-				selector,
-				properties,
-			});
-			console.log(`${selector} queued!`);
+			var type;
+			//if(selector.trim().startsWith("@"))
+			if(selector.startsWith("@"))
+			{
+				type=true;
+				this._queue.push({
+					type,
+					selector,
+					properties,
+				});
+			}
+			else
+			{
+				type=false;
+				this._queue.push({
+					type,
+					selector,
+					properties,
+				});
+			}
 			return -1;
 		} else {
 			// If the DOM is ready, the rule is processed.
-			return this._addRuleHelper(selector, properties);
+			return this.AddingRule(selector,this._addRuleHelper(properties));
 		}
 	},
 
@@ -101,19 +130,37 @@ window.MyCSS = {
 		this._rules = [];
 	},
 
+
+
+
+	AddingRule(selector,declaration)
+	{
+		// Cross-browser algorithm for adding rule
+		let stylesheet = this._stylesheet;
+		if (stylesheet.insertRule) {
+			var inner_code=`${selector} {
+				${declaration}
+			}`;
+			//console.log(inner_code);
+			return stylesheet.insertRule(inner_code, stylesheet.rules.length);
+		} else if (stylesheet.addRule) {
+			return stylesheet.addRule(stylesheet, declaration);
+		} else {
+			throw new Error('X_0');
+		}
+	},
+
+
+
+
 	/**
 	 * @description The fundamental base of my dissertation starts from below
 	 * @throw {Error} Browser is not supported
  	 * @param String selector
 	 * @param Object properties
 	 */
-	_addRuleHelper(selector, properties) {
-		// Adding to processed-rules
-		this._rules.push({
-			selector,
-			properties
-		});
 
+	_addRuleHelper(properties) {
 		// Finding correct direction
 		let directions = {
 			rtl: {
@@ -278,18 +325,7 @@ window.MyCSS = {
 			declaration.push(`${name}:${value}`);
 		}
 		declaration = declaration.join(';');
-
-		// Cross-browser algorithm for adding rule
-		let stylesheet = this._stylesheet;
-		if (stylesheet.insertRule) {
-			return stylesheet.insertRule(`${selector} {
-				${declaration}
-			}`, stylesheet.rules.length);
-		} else if (stylesheet.addRule) {
-			return stylesheet.addRule(stylesheet, declaration);
-		} else {
-			throw new Error('X_0');
-		}
+		return declaration;
 	},
 };
 
